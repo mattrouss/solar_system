@@ -12,7 +12,6 @@ public class CelestialBody : MonoBehaviour
     private Vector3 currentVelocity;
 
 
-    public string name;
     public Material material;
     private Rigidbody rigidBody;
     private LineRenderer lineRenderer;

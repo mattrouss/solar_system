@@ -6,6 +6,7 @@ public class SystemSimulation : MonoBehaviour
 {
     public CelestialBody[] bodies;
     public CelestialBody referenceBody;
+    public StarGenerator starGenerator;
     public bool showTrajectories = false;
     public float trajectoryTime = 100f;
     public int trajectoryResolution = 800;
@@ -15,6 +16,7 @@ public class SystemSimulation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        starGenerator.GenerateStars();
         
     }
 
