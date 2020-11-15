@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CelestialBody : MonoBehaviour
 {
-    public float mass;
-    public float radius;
+
+    public float surfaceGravity;
     public Vector3 initialVelocity;
+    private float mass;
+    private float radius;
     private Vector3 currentVelocity;
 
 
+    public string name;
     public Material material;
     private Rigidbody rigidBody;
     private LineRenderer lineRenderer;
@@ -19,6 +22,9 @@ public class CelestialBody : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        radius = transform.localScale[0];
+        mass = surfaceGravity * radius * radius / Universe.gravitationalConstant;
+
         rigidBody = GetComponent<Rigidbody>();
         material = GetComponent<MeshRenderer>().material;
         lineRenderer = GetComponent<LineRenderer>();
@@ -71,5 +77,10 @@ public class CelestialBody : MonoBehaviour
     public Vector3 GetPosition()
     {
         return rigidBody.position;
+    }
+
+    public float GetMass()
+    {
+        return mass;
     }
 }
