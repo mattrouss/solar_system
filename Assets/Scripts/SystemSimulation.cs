@@ -5,15 +5,18 @@ using UnityEngine;
 public class SystemSimulation : MonoBehaviour
 {
     public CelestialBody[] bodies;
+    public CelestialBody referenceBody;
+    public StarGenerator starGenerator;
     public bool showTrajectories = false;
-    public float trajectoryTime = 10f;
-    public int trajectoryResolution = 500;
+    public float trajectoryTime = 100f;
+    public int trajectoryResolution = 800;
 
     private bool simulationStarted = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        starGenerator.GenerateStars();
         
     }
 
@@ -79,8 +82,8 @@ public class SystemSimulation : MonoBehaviour
                     Vector3 forceDir = direction.normalized;
                     float sqrDist = direction.sqrMagnitude;
 
-                    force += (Universe.gravitationalConstant * bodies[i].mass * bodies[j].mass / sqrDist) * forceDir;
-                    velocities[i] += timeDelta / bodies[i].mass * force;
+                    force += (Universe.gravitationalConstant * bodies[i].GetMass() * bodies[j].GetMass() / sqrDist) * forceDir;
+                    velocities[i] += timeDelta / bodies[i].GetMass() * force;
                     positions[i] += timeDelta * velocities[i];
                 }
 
