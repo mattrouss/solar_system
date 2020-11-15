@@ -27,7 +27,6 @@ public class CelestialBody : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("TRIGGER");
         currentVelocity = Vector2.zero;
         has_collided = true;
     }
