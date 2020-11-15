@@ -6,11 +6,12 @@ public class CelestialBody : MonoBehaviour
 {
     public float mass;
     public float radius;
-    public Vector2 initialVelocity;
-    private Vector2 currentVelocity;
+    public Vector3 initialVelocity;
+    private Vector3 currentVelocity;
 
 
-    private Rigidbody2D rigidBody;
+    public Material material;
+    private Rigidbody rigidBody;
 
     private bool has_collided = false;
 
@@ -18,14 +19,15 @@ public class CelestialBody : MonoBehaviour
     void Start()
     {
         // Set transform and collider scale
-        transform.localScale = radius * Vector3.one;
+        //transform.localScale = radius * Vector3.one;
 
-        rigidBody = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody>();
+        material = GetComponent<MeshRenderer>().material;
 
         currentVelocity = initialVelocity;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         currentVelocity = Vector2.zero;
         has_collided = true;
@@ -33,14 +35,14 @@ public class CelestialBody : MonoBehaviour
 
     public void UpdateVelocity(CelestialBody[] allBodies, float timeDelta)
     {
-        Vector2 force = Vector2.zero;
+        Vector3 force = Vector2.zero;
         foreach (CelestialBody body in allBodies)
         {
             if (this == body)
                 continue;
 
-            Vector2 direction = body.rigidBody.position - rigidBody.position;
-            Vector2 forceDir = direction.normalized;
+            Vector3 direction = body.rigidBody.position - rigidBody.position;
+            Vector3 forceDir = direction.normalized;
             float sqrDist = direction.sqrMagnitude;
 
             force += (Universe.gravitationalConstant * mass * body.mass / sqrDist) * forceDir;

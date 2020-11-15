@@ -15,6 +15,12 @@ public class SystemSimulation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Launch();
+    }
+
+    void Launch()
+    {
         foreach (CelestialBody body in bodies) 
         {
             body.UpdateVelocity(bodies, Time.deltaTime);
@@ -24,5 +30,6 @@ public class SystemSimulation : MonoBehaviour
         {
            body.UpdatePosition(Time.deltaTime);
         }
+
     }
 }
