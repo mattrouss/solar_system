@@ -12,24 +12,26 @@ public class CelestialBody : MonoBehaviour
 
     public Material material;
     private Rigidbody rigidBody;
+    private LineRenderer lineRenderer;
 
     private bool has_collided = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set transform and collider scale
-        //transform.localScale = radius * Vector3.one;
-
         rigidBody = GetComponent<Rigidbody>();
         material = GetComponent<MeshRenderer>().material;
+        lineRenderer = GetComponent<LineRenderer>();
+
+        lineRenderer.startColor = material.color;
+        lineRenderer.endColor =Color.white;
 
         currentVelocity = initialVelocity;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        currentVelocity = Vector2.zero;
+        currentVelocity = Vector3.zero;
         has_collided = true;
     }
 
@@ -54,5 +56,20 @@ public class CelestialBody : MonoBehaviour
     public void UpdatePosition(float timeDelta)
     {
        rigidBody.position += timeDelta * currentVelocity;
+    }
+
+    public LineRenderer GetLineRenderer()
+    {
+        return lineRenderer;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return currentVelocity;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return rigidBody.position;
     }
 }
